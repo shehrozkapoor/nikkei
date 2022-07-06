@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="日経225先物、オプションビジュアルデータ">
+    <meta name="author" content="Akatsuki Investment Advisor">
+    <link rel="icon" href="{% static 'assets/favicon.ico' %}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}" type="image/x-icon" />
+    <script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>日経225先物、オプションビジュアルデータ</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'assets/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/main.css' %}" rel="stylesheet">
+    <style>
+        nav.navbar.navbar-expand-lg.navbar-dark.fixed-top.navbar-fixed-top.newClass {
+            background: url(../static/assets/bg.png) center center / cover no-repeat fixed;
+        }
+
+        a.nav-link:hover {
+            text-decoration: underline;
+            color: #2cb8f5 !important;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-fixed-top">
+        <div class="main-header-container wrapper navigationBorder">
+            <a class="navbar-brand" href="/">
+                <img class="logoImg" src="{% static 'assets/header-logo.png' %}" />
+            </a>
+            <p class="headingText">日経225先物 オプションビジュアルデータ</p>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">最新チャート</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'archive' %}">アーカイブス</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'company_profile' %}">会社概要</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'risk_description' %}">リスクに関する表記</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'disclaimer' %}">ディスクレーマー</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-info"><a href="{% url 'logout' %}">ログアウト</a></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="disclaimerSection">
+            <div class="disclaimerUl">
+                <ul>
+                    <li>
+                        <p>本サイト上に掲載される情報は、暁投資顧問（以下「暁投資顧問」）又は第三者が有する著作権、特許権、商標権その他の権利により保護されています。本サイトで別途明記されている場合を除き、暁投資顧問は、本サイト利用者に対して本サイト上に掲載される記事・写真・図表その他の情報を改変、複製又は頒布（転載及びアップロードを含みます）し、又は本サイトを他のサイトにリンクすることを一切禁止します。本サイトは、暁投資顧問ないしその子会社・関連会社の社員、及び暁投資顧問が承認する代理店のみが、社内事務を遂行する目的及び暁投資顧問の提供する商品を顧客に対して販売する目的のためにのみ利用できるものです。他の目的のための利用は、一切禁止します。禁止行為の違反は、刑事罰及び民事上の責任追及の対象となることにご留意ください。なお、本サイトは、法律、会計その他の専門的助言を提供するものではありません。
+                        </p>
+                    </li>
+                    <li>
+                        <p>暁投資顧問は、本サイトにおいて第三者が開設したサイトへのリンクを載せることがありますが、そのことは、暁投資顧問がリンク先及びその商品内容等を承認推奨又は保証することを意味するものではありません。暁投資顧問は、それらに関して何らの責任も負うものではありません。
+                        </p>
+                    </li>
+                    <li>
+                        <p>暁投資顧問は、事前に通知することなく、本サイトに掲載する情報の全部若しくは一部を変更し、又は本サイトの運営を中断若しくは停止する権利を有します。暁投資顧問は、本サイトの全部又は一部の利用不能に関連する責任を一切負いません。利用者は、本サイトの掲載内容の変更に常にご留意ください。
+                        </p>
+                    </li>
+                    <li>
+                        <p>上記の内容は、本サイトを構成する全頁に対して適用されます。</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <div class="footer">
+        <img src="{% static 'assets/header-logo.png' %}" />
+        <p>Copyright © 2021 chart project</p>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="./static/vendor/jquery/jquery.min.js"></script>
+    <script src="./static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./static/js/main.js"></script>
+    <script>
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('.navbar').addClass('newClass');
+            } else {
+                $('.navbar').removeClass('newClass');
+            }
+        });
+    </script>
+</body>
+
+</html>

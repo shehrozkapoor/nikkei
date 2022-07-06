@@ -1,0 +1,539 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+window.onload = function () {
+  $.get("http://127.0.0.1:8000/getChart1Data", function(data) {
+    var today = new Date();
+    var year = 2021;
+
+    var start_date = new Date(2021,8,10)
+    var end_date = new Date(2021,11,9)
+
+    var thursdays = [];
+
+    if ((today.getDate() == (end_date.getDate() + 1)) && (today.getMonth() == (end_date.getMonth())) && (today.getFullYear() == (end_date.getFullYear())) ){
+        start_date = moment(end_date).add(1, 'days');
+        if (today.getMonth() == '11'){
+            document.write("1");
+            year += 1;
+            m = 3;
+        }
+        else if(today.getMonth() == '2'){
+            document.write("2");
+            m = 6;
+        }
+        else if(today.getMonth() == '5'){
+            document.write("3");
+            m = 9;
+        }
+        else if(today.getMonth() == '8'){
+            document.write("4");
+            m = 12;
+        }
+        e = end_date.getDate();
+        var startdate = `${e}.${m}.${year}`;
+        var thursday = moment(startdate, "DD-MM-YYYY").add(0,'month')
+            .startOf('month')
+            .day("Thursday");
+
+        if (thursday.date() > 7) thursday.add(7,'d');
+        var month = thursday.month();
+        while(month === thursday.month()){
+            thursdays.push(thursday.toString())
+            thursday.add(7,'d');
+        }
+        end_date = thursdays[1]
+        thursdays = [];
+    }else{
+        start_date = start_date;
+        end_date =end_date;
+    }
+    var dataPoints = [data];
+    var stockChart = new CanvasJS.StockChart("chart1Data",{
+    title: {
+        text: "Chart 01"
+      },
+    navigator:{
+        enabled:false,
+    },
+    rangeSelector:{
+        enabled:false,
+    },
+     axisX:{
+   interval: 25,
+   intervalType: "days",
+ },
+    charts: [{
+    toolTip:{
+        shared: true,
+        content: "Total: ${y}"
+      },
+      axisX: {
+       minimum : start_date,
+       maximum : end_date,
+      },      
+      data: [{        
+        type: "column", //Change it to "spline", "area", "column"
+        dataPoints : dataPoints
+      }],
+    }]
+  });
+    for(var i = 0; i < data.length; i++){
+        dataPoints.push({x: new Date(data[i].x), y: Number(data[i].volume),color:data[i].stroke});
+    }
+    stockChart.render();
+  });
+  //Chart 1 JNET
+  $.get("http://127.0.0.1:8000/getChart1DataJnet", function(data) {
+    var today = new Date();
+    var year = 2021;
+
+    var start_date = new Date(2021,8,10)
+    var end_date = new Date(2021,11,9)
+
+    var thursdays = [];
+
+    if ((today.getDate() == (end_date.getDate() + 1)) && (today.getMonth() == (end_date.getMonth())) && (today.getFullYear() == (end_date.getFullYear())) ){
+        start_date = moment(end_date).add(1, 'days');
+        if (today.getMonth() == '11'){
+            document.write("1");
+            year += 1;
+            m = 3;
+        }
+        else if(today.getMonth() == '2'){
+            document.write("2");
+            m = 6;
+        }
+        else if(today.getMonth() == '5'){
+            document.write("3");
+            m = 9;
+        }
+        else if(today.getMonth() == '8'){
+            document.write("4");
+            m = 12;
+        }
+        e = end_date.getDate();
+        var startdate = `${e}.${m}.${year}`;
+        var thursday = moment(startdate, "DD-MM-YYYY").add(0,'month')
+            .startOf('month')
+            .day("Thursday");
+
+        if (thursday.date() > 7) thursday.add(7,'d');
+        var month = thursday.month();
+        while(month === thursday.month()){
+            thursdays.push(thursday.toString())
+            thursday.add(7,'d');
+        }
+        end_date = thursdays[1]
+        thursdays = [];
+    }else{
+        start_date = start_date;
+        end_date =end_date;
+    }
+    var dataPoints = [data];
+    var stockChart = new CanvasJS.StockChart("chart1DataJnet",{
+    title: {
+        text: "Chart 01 JNET"
+      },
+    navigator:{
+        enabled:false,
+    },
+    rangeSelector:{
+        enabled:false,
+    },
+     axisX:{
+   interval: 25,
+   intervalType: "days",
+ },
+    charts: [{
+    toolTip:{
+        shared: true,
+        content: "Total: ${y}"
+      },
+      axisX: {
+       minimum : start_date,
+       maximum : end_date,
+      },      
+      data: [{        
+        type: "column", //Change it to "spline", "area", "column"
+        dataPoints : dataPoints
+      }],
+    }]
+  });
+    for(var i = 0; i < data.length; i++){
+        dataPoints.push({x: new Date(data[i].x), y: Number(data[i].volume),color:data[i].stroke});
+    }
+    stockChart.render();
+  });  //Chart 5 
+   $.get("http://127.0.0.1:8000/getChart5Data", function(data) {
+    var today = new Date();
+    var year = 2021;
+
+    var start_date = new Date(2021,8,10)
+    var end_date = new Date(2021,11,9)
+
+    var thursdays = [];
+
+    if ((today.getDate() == (end_date.getDate() + 1)) && (today.getMonth() == (end_date.getMonth())) && (today.getFullYear() == (end_date.getFullYear())) ){
+        start_date = moment(end_date).add(1, 'days');
+        if (today.getMonth() == '11'){
+            document.write("1");
+            year += 1;
+            m = 3;
+        }
+        else if(today.getMonth() == '2'){
+            document.write("2");
+            m = 6;
+        }
+        else if(today.getMonth() == '5'){
+            document.write("3");
+            m = 9;
+        }
+        else if(today.getMonth() == '8'){
+            document.write("4");
+            m = 12;
+        }
+        e = end_date.getDate();
+        var startdate = `${e}.${m}.${year}`;
+        var thursday = moment(startdate, "DD-MM-YYYY").add(0,'month')
+            .startOf('month')
+            .day("Thursday");
+
+        if (thursday.date() > 7) thursday.add(7,'d');
+        var month = thursday.month();
+        while(month === thursday.month()){
+            thursdays.push(thursday.toString())
+            thursday.add(7,'d');
+        }
+        end_date = thursdays[1]
+        thursdays = [];
+    }else{
+        start_date = start_date;
+        end_date =end_date;
+    }
+    var dataPoints = [data];
+    var stockChart = new CanvasJS.StockChart("chart5Data",{
+    title: {
+        text: "Chart 05"
+      },
+    navigator:{
+        enabled:false,
+    },
+    rangeSelector:{
+        enabled:false,
+    },
+     axisX:{
+   interval: 25,
+   intervalType: "days",
+    },
+    charts: [{
+    toolTip:{
+        shared: true,
+        content: "Total: ${y}"
+      },
+      axisX: {
+       minimum : start_date,
+       maximum : end_date,
+      },      
+      data: [{        
+        type: "column", //Change it to "spline", "area", "column"
+        dataPoints : dataPoints
+      }],
+    }]
+  });
+    for(var i = 0; i < data.length; i++){
+        dataPoints.push({x: new Date(data[i].x), y: Number(data[i].volume),color:data[i].stroke});
+    }
+    stockChart.render();
+  });
+  //chart 5net
+  $.get("http://127.0.0.1:8000/getChart5DataJnet", function(data) {
+    var today = new Date();
+    var year = 2021;
+
+    var start_date = new Date(2021,8,10)
+    var end_date = new Date(2021,11,9)
+
+    var thursdays = [];
+
+    if ((today.getDate() == (end_date.getDate() + 1)) && (today.getMonth() == (end_date.getMonth())) && (today.getFullYear() == (end_date.getFullYear())) ){
+        start_date = moment(end_date).add(1, 'days');
+        if (today.getMonth() == '11'){
+            document.write("1");
+            year += 1;
+            m = 3;
+        }
+        else if(today.getMonth() == '2'){
+            document.write("2");
+            m = 6;
+        }
+        else if(today.getMonth() == '5'){
+            document.write("3");
+            m = 9;
+        }
+        else if(today.getMonth() == '8'){
+            document.write("4");
+            m = 12;
+        }
+        e = end_date.getDate();
+        var startdate = `${e}.${m}.${year}`;
+        var thursday = moment(startdate, "DD-MM-YYYY").add(0,'month')
+            .startOf('month')
+            .day("Thursday");
+
+        if (thursday.date() > 7) thursday.add(7,'d');
+        var month = thursday.month();
+        while(month === thursday.month()){
+            thursdays.push(thursday.toString())
+            thursday.add(7,'d');
+        }
+        end_date = thursdays[1]
+        thursdays = [];
+    }else{
+        start_date = start_date;
+        end_date =end_date;
+    }
+    var dataPoints = [data];
+    var stockChart = new CanvasJS.StockChart("chart5DataJnet",{
+    title: {
+        text: "Chart 05 JNET"
+      },
+    navigator:{
+        enabled:false,
+    },
+    rangeSelector:{
+        enabled:false,
+    },
+     axisX:{
+   interval: 25,
+   intervalType: "days",
+ },
+    charts: [{
+    toolTip:{
+        shared: true,
+        content: "Total: ${y}"
+      },
+      axisX: {
+       minimum : start_date,
+       maximum : end_date,
+      },      
+      data: [{        
+        type: "column", //Change it to "spline", "area", "column"
+        dataPoints : dataPoints
+      }],
+    }]
+  });
+    for(var i = 0; i < data.length; i++){
+        dataPoints.push({x: new Date(data[i].x), y: Number(data[i].volume),color:data[i].stroke});
+    }
+    stockChart.render();
+  });
+  //chart 06
+  $.get("http://127.0.0.1:8000/getChart6Data", function(data) {
+    var today = new Date();
+    var year = 2021;
+
+    var start_date = new Date(2021,8,10)
+    var end_date = new Date(2021,11,9)
+
+    var thursdays = [];
+
+    if ((today.getDate() == (end_date.getDate() + 1)) && (today.getMonth() == (end_date.getMonth())) && (today.getFullYear() == (end_date.getFullYear())) ){
+        start_date = moment(end_date).add(1, 'days');
+        if (today.getMonth() == '11'){
+            document.write("1");
+            year += 1;
+            m = 3;
+        }
+        else if(today.getMonth() == '2'){
+            document.write("2");
+            m = 6;
+        }
+        else if(today.getMonth() == '5'){
+            document.write("3");
+            m = 9;
+        }
+        else if(today.getMonth() == '8'){
+            document.write("4");
+            m = 12;
+        }
+        e = end_date.getDate();
+        var startdate = `${e}.${m}.${year}`;
+        var thursday = moment(startdate, "DD-MM-YYYY").add(0,'month')
+            .startOf('month')
+            .day("Thursday");
+
+        if (thursday.date() > 7) thursday.add(7,'d');
+        var month = thursday.month();
+        while(month === thursday.month()){
+            thursdays.push(thursday.toString())
+            thursday.add(7,'d');
+        }
+        end_date = thursdays[1]
+        thursdays = [];
+    }else{
+        start_date = start_date;
+        end_date =end_date;
+    }
+    var dataPoints = [data];
+    var stockChart = new CanvasJS.StockChart("chart6Data",{
+    title: {
+        text: "Chart 06"
+      },
+    navigator:{
+        enabled:false,
+    },
+    rangeSelector:{
+        enabled:false,
+    },
+     axisX:{
+   interval: 25,
+   intervalType: "days",
+    },
+    charts: [{
+    toolTip:{
+        shared: true,
+        content: "Total: ${y}"
+      },
+      axisX: {
+       minimum : start_date,
+       maximum : end_date,
+      },      
+      data: [{        
+        type: "column", //Change it to "spline", "area", "column"
+        dataPoints : dataPoints
+      }],
+    }]
+  });
+    for(var i = 0; i < data.length; i++){
+        dataPoints.push({x: new Date(data[i].x), y: Number(data[i].volume),color:data[i].stroke});
+    }
+    stockChart.render();
+  });
+  //Chart 6 JNET
+  $.get("http://127.0.0.1:8000/getChart6DataJnet", function(data) {
+    var today = new Date();
+    var year = 2021;
+
+    var start_date = new Date(2021,8,10)
+    var end_date = new Date(2021,11,9)
+
+    var thursdays = [];
+
+    if ((today.getDate() == (end_date.getDate() + 1)) && (today.getMonth() == (end_date.getMonth())) && (today.getFullYear() == (end_date.getFullYear())) ){
+        start_date = moment(end_date).add(1, 'days');
+        if (today.getMonth() == '11'){
+            document.write("1");
+            year += 1;
+            m = 3;
+        }
+        else if(today.getMonth() == '2'){
+            document.write("2");
+            m = 6;
+        }
+        else if(today.getMonth() == '5'){
+            document.write("3");
+            m = 9;
+        }
+        else if(today.getMonth() == '8'){
+            document.write("4");
+            m = 12;
+        }
+        e = end_date.getDate();
+        var startdate = `${e}.${m}.${year}`;
+        var thursday = moment(startdate, "DD-MM-YYYY").add(0,'month')
+            .startOf('month')
+            .day("Thursday");
+
+        if (thursday.date() > 7) thursday.add(7,'d');
+        var month = thursday.month();
+        while(month === thursday.month()){
+            thursdays.push(thursday.toString())
+            thursday.add(7,'d');
+        }
+        end_date = thursdays[1]
+        thursdays = [];
+    }else{
+        start_date = start_date;
+        end_date =end_date;
+    }
+    var dataPoints = [data];
+    var stockChart = new CanvasJS.StockChart("chart6DataJnet",{
+    title: {
+        text: "Chart 06 JNET"
+      },
+    navigator:{
+        enabled:false,
+    },
+    rangeSelector:{
+        enabled:false,
+    },
+     axisX:{
+   interval: 25,
+   intervalType: "days",
+ },
+    charts: [{
+    toolTip:{
+        shared: true,
+        content: "Total: ${y}"
+      },
+      axisX: {
+       minimum : start_date,
+       maximum : end_date,
+      },      
+      data: [{        
+        type: "column", //Change it to "spline", "area", "column"
+        dataPoints : dataPoints
+      }],
+    }]
+  });
+    for(var i = 0; i < data.length; i++){
+        dataPoints.push({x: new Date(data[i].x), y: Number(data[i].volume),color:data[i].stroke});
+    }
+    stockChart.render();
+  });
+}
+</script>
+</head>
+<body>
+  <a href="http://127.0.0.1:8000/Charts3">See More Charts</a>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div id="chart1Data" style="height: 400px; width: 100%;"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="chart1DataJnet" style="height: 400px; width: 100%;"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div id="chart5Data" style="height: 400px; width: 100%;"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="chart5DataJnet" style="height: 400px; width: 100%;"></div>
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-md-6">
+        <div id="chart6Data" style="height: 400px; width: 100%;"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="chart6DataJnet" style="height: 400px; width: 100%;"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

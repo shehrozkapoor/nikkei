@@ -1,0 +1,24 @@
+<svg id="折角02" xmlns="http://www.w3.org/2000/svg" width="76.78" height="150.593" viewBox="0 0 76.78 150.593">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke-linejoin: round;
+        stroke-miterlimit: 1.5;
+        fill-rule: evenodd;
+      }
+
+      .cls-1 {
+        stroke: #2344df;
+        stroke-width: 8px;
+      }
+
+      .cls-2 {
+        stroke: #a90d1c;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <path id="Layer_28" data-name="Layer 28" class="cls-1" d="M1803.47,129.506h36.54l15.67,15.386v24.9l18.27,18.738,0.65,68.062-12.92,15.251" transform="translate(-1803.47 -124.938)"/>
+  <path id="Layer_29" data-name="Layer 29" class="cls-2" d="M1803.47,126.448h38.68l16.57,16.01v25.9l19.34,19.5,0.69,70.82-13.68,15.869" transform="translate(-1803.47 -124.938)"/>
+</svg>
