@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <!-- Page Content -->
+    <div class="container">
+        <div class="companyProfile">
+            <div>
+                <table class="profileTable">
+                    <tr>
+                        <td>会社名</td>
+                        <td>株式会社暁投資顧問</td>
+                    </tr>
+                    <tr>
+                        <td>設立</td>
+                        <td>平成23年10月28日</td>
+                    </tr>
+                    <tr>
+                        <td>所在地</td>
+                        <td>〒343-0845 埼玉県越谷市南越谷2-14-41 サンキャッスル南越谷205号室</td>
+                    </tr>
+                    <tr>
+                        <td>資本金</td>
+                        <td>1000万円 </td>
+                    </tr>
+                    <tr>
+                        <td>TEL：</td>
+                        <td>048-999-6892</td>
+                    </tr>
+
+                    <tr>
+                        <td>FAX：</td>
+                        <td>048-999-6893</td>
+                    </tr>
+                    <tr>
+                        <td>E-mail </td>
+                        <td>info@akatsuki-toushi.com</td>
+                    </tr>
+                    <tr>
+                        <td>登録番号</td>
+                        <td> 金融商品取引業者　関東財務局長(金商)第2654号</td>
+                    </tr>
+                    <tr>
+                        <td>協会番号</td>
+                        <td>一般社団法人日本投資顧問業協会　会員番号　第012-02597号</td>
+                    </tr>
+                    <tr>
+                        <td>事業内容 </td>
+                        <td>投資助言・代理業</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+document.querySelector(`.nav-link`).style.cssText=`color: #ffffff !important;text-shadow: 0;font-weight: normal;`;
+document.querySelector(`.profile-link`).style.cssText=`color: #2cb8f5 !important;text-shadow: 1px 1px 16px #2cb8f5;font-weight: bolder;`;
+document.querySelector('#mycharts').style.cssText='display: none;'
+</script>
+{% endblock %}

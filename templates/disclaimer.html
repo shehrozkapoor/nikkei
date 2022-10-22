@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container">
+        <div class="disclaimerSection">
+            <div class="disclaimerUl">
+                <ul>
+                    <li>
+                        <p>本サイト上に掲載される情報は、暁投資顧問（以下「暁投資顧問」）又は第三者が有する著作権、特許権、商標権その他の権利により保護されています。本サイトで別途明記されている場合を除き、暁投資顧問は、本サイト利用者に対して本サイト上に掲載される記事・写真・図表その他の情報を改変、複製又は頒布（転載及びアップロードを含みます）し、又は本サイトを他のサイトにリンクすることを一切禁止します。本サイトは、暁投資顧問ないしその子会社・関連会社の社員、及び暁投資顧問が承認する代理店のみが、社内事務を遂行する目的及び暁投資顧問の提供する商品を顧客に対して販売する目的のためにのみ利用できるものです。他の目的のための利用は、一切禁止します。禁止行為の違反は、刑事罰及び民事上の責任追及の対象となることにご留意ください。なお、本サイトは、法律、会計その他の専門的助言を提供するものではありません。
+                        </p>
+                    </li>
+                    <li>
+                        <p>暁投資顧問は、本サイトにおいて第三者が開設したサイトへのリンクを載せることがありますが、そのことは、暁投資顧問がリンク先及びその商品内容等を承認推奨又は保証することを意味するものではありません。暁投資顧問は、それらに関して何らの責任も負うものではありません。
+                        </p>
+                    </li>
+                    <li>
+                        <p>暁投資顧問は、事前に通知することなく、本サイトに掲載する情報の全部若しくは一部を変更し、又は本サイトの運営を中断若しくは停止する権利を有します。暁投資顧問は、本サイトの全部又は一部の利用不能に関連する責任を一切負いません。利用者は、本サイトの掲載内容の変更に常にご留意ください。
+                        </p>
+                    </li>
+                    <li>
+                        <p>上記の内容は、本サイトを構成する全頁に対して適用されます。</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+document.querySelector(`.nav-link`).style.cssText=`color: #ffffff !important;text-shadow: 0;font-weight: normal;`;
+document.querySelector(`.disclaimer-link`).style.cssText=`color: #2cb8f5 !important;text-shadow: 1px 1px 16px #2cb8f5;font-weight: bolder;`;
+document.querySelector('#mycharts').style.cssText='display: none;'
+</script>
+{% endblock %}

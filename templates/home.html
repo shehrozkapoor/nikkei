@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block web_title%}
+    <div class="web_title">
+        <h3>チャートタイトルをクリックすると拡大します。 </h3>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+<div class="div1 col-lg-9" id="charts_div">
+    <canvas id="chart1"></canvas>
+    <canvas id="chart2"></canvas>
+    <canvas id="chart3"></canvas>
+    <canvas id="chart4"></canvas>
+    <canvas id="chart5"></canvas>
+    <canvas id="chart6"></canvas>
+    <canvas id="chart7"></canvas>
+    <canvas id="chart8"></canvas>
+    <canvas id="chart9"></canvas>
+    <canvas id="chart10"></canvas>
+    <canvas id="chart11"></canvas>
+    <canvas id="chart12"></canvas>
+    <canvas id="chart13"></canvas>
+    <canvas id="chart14"></canvas>
+    <canvas id="chart15"></canvas>
+    <canvas id="chart16"></canvas>
+    <canvas id="chart17"></canvas>
+    <canvas id="chart18"></canvas>
+    <canvas id="chart19"></canvas>
+    <canvas id="chart20"></canvas>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/home.js'%}"></script>
+{% endblock %}

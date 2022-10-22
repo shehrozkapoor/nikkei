@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="日経225先物、オプションビジュアルデータ">
+  <meta name="author" content="Akatsuki Investment Advisor">
+  <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon"/>
+  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon"/>
+
+  <title>日経225先物、オプションビジュアルデータ</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+<style>
+    .loginPageBg {
+        background: url("{% static 'img/loginBg.png' %}") no-repeat;
+        background-size: 100%;
+        padding: 10px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+    .headingText {
+    color: white;
+    padding-top: 13px;
+    font-size: 20px;
+    padding-right: 72% !important;
+    }
+</style>
+
+</head>
+
+<body class="login">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-fixed-top">
+    <div class="main-header-container wrapper navigationBorder">
+      <a class="navbar-brand" href="/">
+        <img class="logoImg" src="{% static 'img/header-logo.png' %}" />
+      </a>
+      <p class="headingText">日経225先物 オプションビジュアルデータ</p>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav> 
+  <!-- Page Content -->
+  <div class="container">
+    <div class="loginPageBg">
+      <div class="disclaimerUl">
+        <div class="inputSection px-3">
+            <form method="POST" action="{% url 'login'%}"> 
+              {% csrf_token %}
+
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="パスワードを入力" aria-label="お忘れですか" aria-describedby="basic-addon2" name="password">
+         
+                </div>
+                <div class="mt-2 pt-4 text-center">
+                    <button class="btn btn-primary w-25" type="submit">ログイン</button>
+                </div> 
+            </form> 
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+  <div class="footer">
+    <img src="{% static 'img/header-logo.png' %}" />
+    <p>Copyright © 2021 chart project</p>
+  </div>
+</body>
+
+</html>

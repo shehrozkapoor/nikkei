@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="日経225先物、オプションビジュアルデータ">
+        <meta name="author" content="Akatsuki Investment Advisor">
+        
+        <title>日経225先物、オプションビジュアルデータ</title>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href='{% static "css/main.css" %}'>
+        <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
+        <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
+
+        <script src="{% static 'js/constants.js' %}"></script>
+        <script src="{% static 'js/generate_chart.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" crossorigin="anonymous"></script>
+
+        <style>
+            .web_title {
+                position: absolute;
+                right: 29%;
+                color: #fff;
+            }
+    
+            .web_title h3 {
+                font-size: 22px;
+            }
+    
+            .modal_large {
+                max-width: 90%;
+            }
+    
+            nav.navbar.navbar-expand-lg.navbar-dark.fixed-top.navbar-fixed-top.newClass {
+                background: url("{% static 'img/bg.png'%}") center center / cover no-repeat fixed;
+            }
+    
+            a.nav-link:hover {
+                text-decoration: underline;
+                color: #2cb8f5 !important;
+                font-weight: bolder;
+            }
+            canvas {
+                background: url("{% static 'img/homeGrideBf.png'%}") no-repeat;
+                background-size: 100%;
+                height: 450px;
+                width: 100%; 
+                margin: 30px;
+                /* margin-top: 60px; */
+            }
+            #charts_div {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+    
+            #charts_div > canvas {
+                flex: 0 0 50%;
+            }
+
+             .loginPageBg {
+                background: url("{% static 'img/loginBg.png' %}") no-repeat;
+                background-size: 100%;
+                padding: 10px;
+                margin-top: 150px;
+                margin-bottom: 150px;
+            }
+            .headingText {
+            color: white;
+            padding-top: 13px;
+            font-size: 20px;
+            padding-right: 72% !important;
+            }
+        </style>
+    </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-fixed-top">
+        <div class="main-header-container wrapper navigationBorder">
+            <!-- <div class="header_text"> -->
+            <a class="navbar-brand" href="/">
+                <img class="logoImg" src="{% static 'img/header-logo.png' %}" />
+            </a>
+            <p class="logo_name">日経225先物 オプションビジュアルデータ</p>
+            <!-- </div> -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link home-link" href="/">最新チャート</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link archive-link" href="{% url 'archive' %}">アーカイブス</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link profile-link" href="{% url 'company_profile' %}">会社概要</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link description-link" href="{% url 'risk_description' %}">リスクに関する表記</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disclaimer-link" href="{% url 'disclaimer' %}">ディスクレーマー</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-info"><a href="{% url 'logout' %}">ログアウト</a></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    {% block web_title%}
+
+    {% endblock %}
+    
+    {% block body %}
+    {% endblock %}
+
+    <div class="wrapper wrapper-body row" id="mycharts">
+
+        {% block content %}
+        {% endblock %}
+        <div class="col-md-3 sidebar home">
+            <div>
+                <img class="borderImageTopLeft" src="{% static 'img/border_home_sidebar.svg'%}" />
+                <p class="titleOfSidebar">メニュー</p>
+                <img class="borderImageTopRight" src="{% static 'img/border_home_sidebar.svg'%}" />
+            </div>
+            <div class="sidebarListContainer">
+                <div class="sidebarTitleList">
+                    <ul>
+                        <li>
+                            <a class="chart_1 side-links active"> 日経225ラージ先物外資系手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_2 side-links'>日経225ラージ先物クレディスイス手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_3 side-links'>日経225ラージ先物ゴールドマンサックス手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_4 side-links'>日経225ラージ先物モルガンスタンレー手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_5 side-links'> 日経225ラージ先物国内ネット系証券手口</a> </li>
+                        <li>
+                            <a class='chart_6 side-links'> 日経225mini先物国内ネット系証券手口</a> </li>
+                        <li>
+                            <a class='chart_7 side-links'> TOPIX先物外資系手口</a> </li>
+                        <li>
+                            <a class='chart_8 side-links'>TOPIX先物クレディスイス手口</a> </li>
+                        <li>
+                            <a class='chart_9 side-links'>TOPIX先物ゴールドマンサックス手口</a> </li>
+                        <li>
+                            <a class='chart_10 side-links'>TOPIX先物モルガンスタンレー手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_11 side-links'>日経225オプションゴールドマンサックスのコール手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_12 side-links'>日経225オプションゴールドマンサックスのプット手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_13 side-links'>日経225オプションABNアムロのコール手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_14 side-links'>日経225オプションABNアムロのプット手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_15 side-links'>日経225オプションJPモルガンのコール手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_16 side-links'>日経225オプションJPモルガンのプット手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_17 side-links'>日経225オプションモルガンスタンレーのコール手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_18 side-links'>日経225オプションモルガンスタンレーのプット手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_19 side-links'>日経225オプション国内ネット系証券のコール手口</a>
+                        </li>
+                        <li>
+                            <a class='chart_20 side-links'>日経225オプション国内ネット系証券のプット手口</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottomSectionBorder">
+                <img class="borderImageBottomLeft" src='{% static "img/border_home_sidebar.svg" %}' />
+                <img class="borderImageBottomRight" src='{% static "img/border_home_sidebar.svg" %}' />
+            </div>
+        </div>
+    </div>
+    
+
+
+    <div class="footer">
+        <img src="{% static 'img/header-logo.png' %}" />
+        <p>Copyright © 2021 chart project</p>
+    </div>
+
+
+    {% block script %}
+    {% endblock %}
+</body>
+</html>
